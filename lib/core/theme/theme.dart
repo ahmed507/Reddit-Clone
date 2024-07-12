@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:reddit_clone/core/common/constants.dart';
 
 ThemeData darkTheme = ThemeData(
+  toggleButtonsTheme: ToggleButtonsThemeData(
+    borderRadius: BorderRadius.circular(50),
+  ),
+  buttonTheme: ButtonThemeData(
+    buttonColor: Colors.white,
+    textTheme: ButtonTextTheme.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(50),
+    ),
+  ),
   scaffoldBackgroundColor: Colors.black,
   colorScheme: const ColorScheme.dark(
-    primary: Colors.white,
+    primary: redditOrange,
     secondary: Colors.white,
     onPrimary: Colors.black,
     onSecondary: Colors.black,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:reddit_clone/core/common/constants.dart';
 import 'package:reddit_clone/generated/assets.dart';
 
 class HomeHeaderWidget extends StatefulWidget {
@@ -33,46 +35,45 @@ class _HomeHeaderWidgetState extends State<HomeHeaderWidget> {
       offset: const Offset(-1, 40),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         PopupMenuItem<String>(
-          value: 'Home',
+          value: HomeHeader.home.name,
           child: _menuItem(
-            title: 'Home',
-            icon: Icons.home,
+            title: HomeHeader.home.name,
+            icon: HomeHeader.home.icon,
           ),
         ),
         PopupMenuItem<String>(
-          value: 'Popular',
+          value: HomeHeader.popular.name,
           child: _menuItem(
-            title: 'Popular',
-            icon: Icons.trending_up_outlined,
+            title: HomeHeader.popular.name,
+            icon: HomeHeader.popular.icon,
           ),
         ),
         PopupMenuItem<String>(
-          value: 'Watch',
+          value: HomeHeader.watch.name,
           child: _menuItem(
-            title: 'Watch',
-            icon: Icons.live_tv_rounded,
+            title: HomeHeader.watch.name,
+            icon: HomeHeader.watch.icon,
           ),
         ),
         PopupMenuItem<String>(
-          value: 'Latest',
+          value: HomeHeader.latest.name,
           child: _menuItem(
-            title: 'Latest',
-            icon: Icons.new_releases,
+            title: HomeHeader.latest.name,
+            icon: HomeHeader.latest.icon,
           ),
         ),
       ],
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.asset(
             Assets.iconsRedditWordmark,
-            width: 80,
+            width: 70,
           ),
           Icon(
-            _isExpanded
-                ? Icons.arrow_drop_up_outlined
-                : Icons.arrow_drop_down_outlined,
+            _isExpanded ? EvaIcons.chevron_up : EvaIcons.chevron_down,
           ),
         ],
       ),

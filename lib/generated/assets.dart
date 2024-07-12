@@ -5,5 +5,6 @@ class Assets {
   static const String iconsRedditIcon = 'assets/icons/reddit_icon.svg';
   static const String iconsRedditWordmark = 'assets/icons/Reddit_wordmark.svg';
   static const String imagesDefaultAvatar = 'assets/images/default_avatar.jpg';
+  static const String imagesDefaultSub = 'assets/images/default_sub.png';
   static const String imagesRedditLogo = 'assets/images/reddit_logo.png';
 }
