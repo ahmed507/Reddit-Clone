@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reddit_clone/core/common/widgets/bottom_nav.dart';
 import 'package:reddit_clone/core/common/widgets/left_side_nav.dart';
+import 'package:reddit_clone/core/common/widgets/right_side_nav.dart';
 import 'package:reddit_clone/generated/assets.dart';
 
 class BaseLayout extends StatelessWidget {
@@ -51,7 +52,7 @@ class BaseLayout extends StatelessWidget {
               title: title,
             ),
       drawer: LeftSideNav(),
-      endDrawer: LeftSideNav(),
+      endDrawer: RightSideNav(),
       body: child,
       bottomNavigationBar: const BottomNav(),
     );
