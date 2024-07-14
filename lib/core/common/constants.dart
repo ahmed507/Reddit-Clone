@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:reddit_clone/core/router/routes.dart';
 
 enum HomeHeader {
   home,
@@ -32,6 +33,19 @@ extension HomeHeaderExtension on HomeHeader {
         return Icons.live_tv_rounded;
       case HomeHeader.latest:
         return Icons.new_releases;
+    }
+  }
+
+  String get route {
+    switch (this) {
+      case HomeHeader.home:
+        return Routes.home.toFullPath;
+      case HomeHeader.popular:
+        return Routes.popular.toFullPath;
+      case HomeHeader.watch:
+        return Routes.watch.toFullPath;
+      case HomeHeader.latest:
+        return Routes.latest.toFullPath;
     }
   }
 }

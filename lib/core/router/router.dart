@@ -4,21 +4,34 @@ import 'package:reddit_clone/core/common/widgets/base_layout.dart';
 import 'package:reddit_clone/core/common/widgets/splash.dart';
 import 'package:reddit_clone/core/router/routes.dart';
 import 'package:reddit_clone/features/home/presentation/pages/home_screen.dart';
+import 'package:reddit_clone/features/home/presentation/pages/latest_screen.dart';
+import 'package:reddit_clone/features/home/presentation/pages/popular_screen.dart';
+import 'package:reddit_clone/features/home/presentation/pages/watch_screen.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/home_header_widget.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter router = GoRouter(
+  initialLocation: Routes.home.toFullPath,
   navigatorKey: _rootNavigatorKey,
   debugLogDiagnostics: true,
   routes: [
+    GoRoute(
+      path: Routes.splash.toFullPath,
+      builder: (context, state) {
+        return const Splash();
+      },
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
         Widget title;
         Widget? action;
-        if (state.fullPath == Routes.home.toFullPath) {
+        if (state.fullPath == Routes.home.toFullPath ||
+            state.fullPath == Routes.latest.toFullPath ||
+            state.fullPath == Routes.popular.toFullPath ||
+            state.fullPath == Routes.watch.toFullPath) {
           title = const HomeHeaderWidget();
           action = IconButton(
             onPressed: () {},
@@ -36,24 +49,35 @@ final GoRouter router = GoRouter(
           title = Text(Routes.home.toName);
         }
         return BaseLayout(
-          child: child,
           title: title,
           action: action,
+          child: child,
         );
       },
       routes: [
         GoRoute(
-          path: '/',
+          path: Routes.home.toFullPath,
           builder: (context, state) {
-            return Splash();
+            return const HomeScreen();
           },
         ),
         GoRoute(
-          path: '/home',
+          path: Routes.popular.toFullPath,
           builder: (context, state) {
-            return HomeScreen();
+            return const PopularScreen();
           },
         ),
+        GoRoute(
+          path: Routes.watch.toFullPath,
+          builder: (context, state) {
+            return WatchScreen();
+          },
+        ),
+        GoRoute(
+            path: Routes.latest.toFullPath,
+            builder: (context, state) {
+              return const LatestScreen();
+            }),
       ],
     ),
   ],

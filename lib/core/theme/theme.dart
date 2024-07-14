@@ -4,6 +4,7 @@ import 'package:reddit_clone/core/common/constants.dart';
 ThemeData darkTheme = ThemeData(
   toggleButtonsTheme: ToggleButtonsThemeData(
     borderRadius: BorderRadius.circular(50),
+    selectedColor: redditOrange,
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.white,
@@ -14,7 +15,7 @@ ThemeData darkTheme = ThemeData(
   ),
   scaffoldBackgroundColor: Colors.black,
   colorScheme: const ColorScheme.dark(
-    primary: redditOrange,
+    primary: Colors.black,
     secondary: Colors.white,
     onPrimary: Colors.black,
     onSecondary: Colors.black,

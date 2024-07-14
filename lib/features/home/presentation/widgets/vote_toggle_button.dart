@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class VoteToggleButtons extends StatefulWidget {
-  const VoteToggleButtons({super.key});
+  final int likeCount;
+
+  const VoteToggleButtons({super.key, this.likeCount = 0});
 
   @override
   State<VoteToggleButtons> createState() => _VoteToggleButtonsState();
@@ -23,18 +25,21 @@ class _VoteToggleButtonsState extends State<VoteToggleButtons> {
           _isSelected[index] = !_isSelected[index];
         });
       },
-      children: const <Widget>[
+      children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(4),
+          padding: const EdgeInsets.all(4),
           child: Row(
             children: [
-              Icon(MingCute.large_arrow_up_line),
-              SizedBox(width: 4),
-              Text('1', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Icon(MingCute.large_arrow_up_line),
+              const SizedBox(width: 4),
+              widget.likeCount == 0
+                  ? const SizedBox()
+                  : Text('${widget.likeCount}',
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
             ],
           ),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.all(4),
           child: Icon(MingCute.large_arrow_down_line),
         ),

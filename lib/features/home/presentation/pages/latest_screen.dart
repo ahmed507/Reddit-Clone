@@ -5,14 +5,9 @@ import 'package:reddit_clone/core/common/widgets/positioned_indicator_container.
 import 'package:reddit_clone/features/home/presentation/widgets/post_widget.dart';
 import 'package:reddit_clone/generated/assets.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class LatestScreen extends StatelessWidget {
+  const LatestScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   Widget _defaultBuilder(
           BuildContext context, Widget child, IndicatorController controller) =>
       child;
@@ -72,12 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: 10,
         itemBuilder: (context, index) {
           return const PostWidget(
-            subreddit: 'r/FlutterDev',
-            timeAgo: '1h',
-            title: 'Flutter is awesome!',
+            subreddit: 'r/FlutterPopular',
+            timeAgo: '0.5h',
+            title: 'FlutterPopular is awesome!',
             content: 'This is a post content',
             commentCount: 10,
-            shareCount: 5,
+            shareCount: 7,
           );
         },
       ),

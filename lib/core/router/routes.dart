@@ -8,6 +8,9 @@ enum Routes {
   create,
   chat,
   inbox,
+  popular,
+  watch,
+  latest,
 }
 
 extension RoutesExt on Routes {
@@ -31,6 +34,12 @@ extension RoutesExt on Routes {
         return 'Chat';
       case Routes.inbox:
         return 'Inbox';
+      case Routes.popular:
+        return 'Popular';
+      case Routes.watch:
+        return 'Watch';
+      case Routes.latest:
+        return 'Latest';
     }
   }
 
@@ -54,6 +63,12 @@ extension RoutesExt on Routes {
         return '/chat';
       case Routes.inbox:
         return '/inbox';
+      case Routes.popular:
+        return '/popular';
+      case Routes.watch:
+        return '/watch';
+      case Routes.latest:
+        return '/latest';
     }
   }
 }
