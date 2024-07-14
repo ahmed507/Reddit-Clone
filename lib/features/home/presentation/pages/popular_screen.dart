@@ -2,6 +2,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:reddit_clone/core/common/widgets/infinite_updown_animation.dart';
 import 'package:reddit_clone/core/common/widgets/positioned_indicator_container.dart';
+import 'package:reddit_clone/features/home/domain/entities/post_entity.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/post_widget.dart';
 import 'package:reddit_clone/generated/assets.dart';
 
@@ -63,16 +64,22 @@ class PopularScreen extends StatelessWidget {
           color: Colors.white12,
           height: 0.1,
         ),
-        padding: const EdgeInsets.all(16),
         itemCount: 10,
         itemBuilder: (context, index) {
-          return const PostWidget(
-            subreddit: 'r/FlutterPopular',
-            timeAgo: '0.5h',
-            title: 'FlutterPopular is awesome!',
-            content: 'This is a post content',
-            commentCount: 10,
-            shareCount: 7,
+          return PostWidget(
+            post: PostEntity(
+              id: '1',
+              subreddit: 'r/FlutterPopular',
+              likeCount: 10,
+              timeAgo: '0.5h',
+              title: 'FlutterPopular is awesome!',
+              content: 'This is a post content',
+              commentCount: 10,
+              shareCount: 7,
+            ),
+            onTapComment: () {},
+            onTapShare: () {},
+            onTapVoteSave: () {},
           );
         },
       ),

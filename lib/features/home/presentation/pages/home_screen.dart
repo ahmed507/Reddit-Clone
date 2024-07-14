@@ -1,9 +1,11 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:reddit_clone/core/common/widgets/infinite_updown_animation.dart';
-import 'package:reddit_clone/core/common/widgets/positioned_indicator_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reddit_clone/core/common/widgets/custom_indicator_builder.dart';
+import 'package:reddit_clone/core/common/widgets/splash.dart';
+import 'package:reddit_clone/core/injection/injection.dart';
+import 'package:reddit_clone/features/home/presentation/manager/home/home_bloc.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/post_widget.dart';
-import 'package:reddit_clone/generated/assets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,65 +21,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomRefreshIndicator(
-      autoRebuild: false,
-      onRefresh: () async {
-        await Future<void>.delayed(const Duration(seconds: 3));
-      },
-      builder: (context, child, controller) {
-        final Color backgroundColor =
-            ProgressIndicatorTheme.of(context).refreshBackgroundColor ??
-                Theme.of(context).canvasColor;
-
-        return Stack(
-          children: <Widget>[
-            _defaultBuilder(context, child, controller),
-            PositionedIndicatorContainer(
-              edgeOffset: 0,
-              displacement: 40,
-              controller: controller,
-              child: ScaleTransition(
-                scale: controller.isFinalizing
-                    ? controller.clamp(0.0, 1.0)
-                    : const AlwaysStoppedAnimation(1.0),
-                child: Container(
-                  width: 41,
-                  height: 41,
-                  margin: const EdgeInsets.all(4.0),
-                  child: InfiniteUpDownAnimation(
-                      running: controller.isLoading,
-                      child: Material(
-                        type: MaterialType.circle,
-                        clipBehavior: Clip.antiAlias,
-                        color: backgroundColor,
-                        elevation: 2,
-                        child: AnimatedBuilder(
-                          animation: controller,
-                          builder: (context, _) =>
-                              Image.asset(Assets.imagesRedditLogo),
-                        ),
-                      )),
+    return BlocProvider.value(
+      value: getIt<HomeBloc>()..add(const HomeEvent.fetchPosts()),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) =>
+            previous.isLoading != current.isLoading ||
+            previous.posts != current.posts ||
+            previous.failure != current.failure,
+        builder: (context, state) {
+          if (state.isLoading || state.posts.isEmpty) {
+            return const Splash();
+          }
+          if (state.failure != null) {
+            return Scaffold(
+              body: Center(
+                child: Text(
+                  state.failure!.maybeWhen(
+                      serverError: (message, code) => message ?? '',
+                      orElse: () => 'An error occurred'),
+                  style: const TextStyle(color: Colors.red),
                 ),
               ),
+            );
+          }
+          return CustomRefreshIndicator(
+            autoRebuild: false,
+            onRefresh: () async {
+              await Future<void>.delayed(const Duration(seconds: 2));
+              context.read<HomeBloc>().add(const HomeEvent.fetchPosts());
+            },
+            builder: (context, child, controller) => CustomIndicatorBuilder(
+              controller: controller,
+              child: child,
             ),
-          ],
-        );
-      },
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(
-          color: Colors.white12,
-          height: 0.1,
-        ),
-        padding: const EdgeInsets.all(16),
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return const PostWidget(
-            subreddit: 'r/FlutterDev',
-            timeAgo: '1h',
-            title: 'Flutter is awesome!',
-            content: 'This is a post content',
-            commentCount: 10,
-            shareCount: 5,
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const Divider(
+                color: Colors.white12,
+                height: 0.1,
+              ),
+              itemCount: state.posts.length,
+              itemBuilder: (context, index) {
+                return PostWidget(
+                    post: state.posts[index],
+                    onTapComment: () {},
+                    onTapShare: () {},
+                    onTapVoteSave: () {});
+              },
+            ),
           );
         },
       ),

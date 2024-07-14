@@ -311,7 +311,7 @@ abstract class _WatchVideo implements WatchEvent {
 
 /// @nodoc
 mixin _$WatchState {
-  List<Video> get videos => throw _privateConstructorUsedError;
+  List<VideoEntity> get videos => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
@@ -330,7 +330,7 @@ abstract class $WatchStateCopyWith<$Res> {
       _$WatchStateCopyWithImpl<$Res, WatchState>;
   @useResult
   $Res call(
-      {List<Video> videos,
+      {List<VideoEntity> videos,
       bool isLoading,
       bool hasError,
       String errorMessage,
@@ -362,7 +362,7 @@ class _$WatchStateCopyWithImpl<$Res, $Val extends WatchState>
       videos: null == videos
           ? _value.videos
           : videos // ignore: cast_nullable_to_non_nullable
-              as List<Video>,
+              as List<VideoEntity>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -396,7 +396,7 @@ abstract class _$$WatchStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<Video> videos,
+      {List<VideoEntity> videos,
       bool isLoading,
       bool hasError,
       String errorMessage,
@@ -426,7 +426,7 @@ class __$$WatchStateImplCopyWithImpl<$Res>
       videos: null == videos
           ? _value._videos
           : videos // ignore: cast_nullable_to_non_nullable
-              as List<Video>,
+              as List<VideoEntity>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -455,7 +455,7 @@ class __$$WatchStateImplCopyWithImpl<$Res>
 
 class _$WatchStateImpl implements _WatchState {
   const _$WatchStateImpl(
-      {required final List<Video> videos,
+      {required final List<VideoEntity> videos,
       required this.isLoading,
       required this.hasError,
       required this.errorMessage,
@@ -463,9 +463,9 @@ class _$WatchStateImpl implements _WatchState {
       required this.actualScreen})
       : _videos = videos;
 
-  final List<Video> _videos;
+  final List<VideoEntity> _videos;
   @override
-  List<Video> get videos {
+  List<VideoEntity> get videos {
     if (_videos is EqualUnmodifiableListView) return _videos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_videos);
@@ -524,7 +524,7 @@ class _$WatchStateImpl implements _WatchState {
 
 abstract class _WatchState implements WatchState {
   const factory _WatchState(
-      {required final List<Video> videos,
+      {required final List<VideoEntity> videos,
       required final bool isLoading,
       required final bool hasError,
       required final String errorMessage,
@@ -532,7 +532,7 @@ abstract class _WatchState implements WatchState {
       required final int actualScreen}) = _$WatchStateImpl;
 
   @override
-  List<Video> get videos;
+  List<VideoEntity> get videos;
   @override
   bool get isLoading;
   @override

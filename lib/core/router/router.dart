@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:reddit_clone/core/common/widgets/base_layout.dart';
 import 'package:reddit_clone/core/common/widgets/splash.dart';
 import 'package:reddit_clone/core/router/routes.dart';
@@ -8,6 +9,7 @@ import 'package:reddit_clone/features/home/presentation/pages/latest_screen.dart
 import 'package:reddit_clone/features/home/presentation/pages/popular_screen.dart';
 import 'package:reddit_clone/features/home/presentation/pages/watch_screen.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/home_header_widget.dart';
+import 'package:reddit_clone/features/post/presentation/pages/post_details_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -18,6 +20,7 @@ final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
+      name: Routes.splash.toName,
       path: Routes.splash.toFullPath,
       builder: (context, state) {
         return const Splash();
@@ -35,7 +38,7 @@ final GoRouter router = GoRouter(
           title = const HomeHeaderWidget();
           action = IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.search),
+            icon: const Icon(Bootstrap.search),
           );
         } else if (state.fullPath == Routes.communities.toFullPath) {
           title = Text(Routes.communities.toName);
@@ -56,29 +59,44 @@ final GoRouter router = GoRouter(
       },
       routes: [
         GoRoute(
+          name: Routes.home.toName,
           path: Routes.home.toFullPath,
           builder: (context, state) {
             return const HomeScreen();
           },
         ),
         GoRoute(
+          name: Routes.popular.toName,
           path: Routes.popular.toFullPath,
           builder: (context, state) {
             return const PopularScreen();
           },
         ),
         GoRoute(
+          name: Routes.watch.toName,
           path: Routes.watch.toFullPath,
           builder: (context, state) {
-            return WatchScreen();
+            return const WatchScreen();
           },
         ),
         GoRoute(
-            path: Routes.latest.toFullPath,
-            builder: (context, state) {
-              return const LatestScreen();
-            }),
+          name: Routes.latest.toName,
+          path: Routes.latest.toFullPath,
+          builder: (context, state) {
+            return const LatestScreen();
+          },
+        ),
       ],
+    ),
+    GoRoute(
+      name: Routes.postDetails.toName,
+      path: '${Routes.postDetails.toFullPath}/:id',
+      builder: (context, state) {
+        final String id = state.pathParameters['id']!;
+        return PostDetailsScreen(
+          id: id,
+        );
+      },
     ),
   ],
 );

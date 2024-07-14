@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:reddit_clone/features/home/data/models/video.dart';
+import 'package:reddit_clone/features/home/domain/entities/video_entity.dart';
 
 part 'watch_bloc.freezed.dart';
 part 'watch_event.dart';
 part 'watch_state.dart';
 
 class WatchBloc extends Bloc<WatchEvent, WatchState> {
-  List<Video> videoSource = [
-    Video(
+  List<VideoEntity> videoSource = [
+    VideoEntity(
       id: '1',
       videoTitle: 'Video 1',
       url:
@@ -18,7 +18,7 @@ class WatchBloc extends Bloc<WatchEvent, WatchState> {
       likesNum: 0,
       sharesNum: 30,
     ),
-    Video(
+    VideoEntity(
       id: '2',
       videoTitle: 'Video 2',
       url:
@@ -28,7 +28,7 @@ class WatchBloc extends Bloc<WatchEvent, WatchState> {
       likesNum: 1,
       sharesNum: 30,
     ),
-    Video(
+    VideoEntity(
       id: '3',
       videoTitle: 'Video 3',
       url: 'https://download.samplelib.com/mp4/sample-5s.mp4',

@@ -1,7 +1,5 @@
 enum Routes {
   splash,
-  auth,
-  login,
   register,
   home,
   communities,
@@ -11,6 +9,7 @@ enum Routes {
   popular,
   watch,
   latest,
+  postDetails,
 }
 
 extension RoutesExt on Routes {
@@ -18,10 +17,6 @@ extension RoutesExt on Routes {
     switch (this) {
       case Routes.splash:
         return 'Splash';
-      case Routes.auth:
-        return 'Auth';
-      case Routes.login:
-        return 'Login';
       case Routes.register:
         return 'Register';
       case Routes.home:
@@ -40,6 +35,8 @@ extension RoutesExt on Routes {
         return 'Watch';
       case Routes.latest:
         return 'Latest';
+      case Routes.postDetails:
+        return 'PostDetails';
     }
   }
 
@@ -47,10 +44,6 @@ extension RoutesExt on Routes {
     switch (this) {
       case Routes.splash:
         return '/splash';
-      case Routes.auth:
-        return '/auth';
-      case Routes.login:
-        return '/login';
       case Routes.register:
         return '/register';
       case Routes.home:
@@ -69,6 +62,8 @@ extension RoutesExt on Routes {
         return '/watch';
       case Routes.latest:
         return '/latest';
+      case Routes.postDetails:
+        return '/postDetails';
     }
   }
 }

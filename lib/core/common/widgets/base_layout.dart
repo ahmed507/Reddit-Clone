@@ -4,6 +4,7 @@ import 'package:reddit_clone/core/common/bloc/nav/nav_cubit.dart';
 import 'package:reddit_clone/core/common/widgets/bottom_nav.dart';
 import 'package:reddit_clone/core/common/widgets/left_side_nav.dart';
 import 'package:reddit_clone/core/common/widgets/right_side_nav.dart';
+import 'package:reddit_clone/core/injection/injection.dart';
 import 'package:reddit_clone/generated/assets.dart';
 
 class BaseLayout extends StatelessWidget {
@@ -22,12 +23,13 @@ class BaseLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NavCubit(),
+    return BlocProvider.value(
+      value: getIt<NavCubit>(),
       child: Scaffold(
         appBar: !showAppBar
             ? null
             : AppBar(
+                titleSpacing: 0,
                 actions: [
                   action ?? const SizedBox(),
                   Builder(builder: (context) {

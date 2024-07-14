@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:reddit_clone/core/common/constants.dart';
 
 part 'nav_cubit.freezed.dart';
 part 'nav_state.dart';
 
+@lazySingleton
 class NavCubit extends Cubit<NavState> {
   NavCubit() : super(NavState.initial());
 

@@ -1,6 +1,6 @@
 import 'package:video_player/video_player.dart';
 
-class Video {
+class VideoEntity {
   String id;
   String videoTitle;
   String url;
@@ -11,7 +11,7 @@ class Video {
 
   VideoPlayerController? controller;
 
-  Video({
+  VideoEntity({
     required this.id,
     required this.videoTitle,
     required this.url,

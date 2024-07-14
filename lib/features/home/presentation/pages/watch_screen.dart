@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reddit_clone/features/home/data/models/video.dart';
-import 'package:reddit_clone/features/home/presentation/manager/watch_bloc.dart';
+import 'package:reddit_clone/features/home/domain/entities/video_entity.dart';
+import 'package:reddit_clone/features/home/presentation/manager/watch/watch_bloc.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/post_footer.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/post_header.dart';
 import 'package:video_player/video_player.dart';
@@ -102,13 +102,16 @@ class _WatchScreenState extends State<WatchScreen> {
             commentCount: state.videos[state.prevVideo + 1].commentsNum,
             shareCount: state.videos[state.prevVideo + 1].sharesNum,
             likeCount: state.videos[state.prevVideo + 1].likesNum,
+            onTapVoteSave: () {},
+            onTapComment: () {},
+            onTapShare: () {},
           ),
         ],
       ),
     );
   }
 
-  Widget videoCard(Video video, BuildContext context) {
+  Widget videoCard(VideoEntity video, BuildContext context) {
     return Stack(
       children: [
         video.controller != null &&

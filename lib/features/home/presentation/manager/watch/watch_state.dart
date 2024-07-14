@@ -3,7 +3,7 @@ part of 'watch_bloc.dart';
 @freezed
 class WatchState with _$WatchState {
   const factory WatchState({
-    required List<Video> videos,
+    required List<VideoEntity> videos,
     required bool isLoading,
     required bool hasError,
     required String errorMessage,

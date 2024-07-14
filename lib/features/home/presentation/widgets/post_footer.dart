@@ -6,12 +6,18 @@ class PostFooter extends StatelessWidget {
   final int commentCount;
   final int shareCount;
   final int likeCount;
+  final void Function() onTapComment;
+  final void Function() onTapShare;
+  final void Function() onTapVoteSave;
 
   const PostFooter({
     super.key,
     required this.commentCount,
     required this.shareCount,
-    this.likeCount = 0,
+    required this.onTapComment,
+    required this.onTapShare,
+    required this.onTapVoteSave,
+    required this.likeCount,
   });
 
   @override
@@ -20,10 +26,11 @@ class PostFooter extends StatelessWidget {
       children: [
         VoteToggleButtons(
           likeCount: likeCount,
+          onTapVoteSave: onTapVoteSave,
         ),
         const SizedBox(width: 8),
         InkWell(
-          onTap: () {},
+          onTap: onTapComment,
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -40,18 +47,21 @@ class PostFooter extends StatelessWidget {
               children: [
                 const Icon(MingCute.chat_3_line),
                 const SizedBox(width: 8),
-                Text('$commentCount',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(width: 4),
-                const Text('Comments',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  '$commentCount Comments',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                ),
               ],
             ),
           ),
         ),
         const Spacer(),
         InkWell(
-          onTap: () {},
+          onTap: onTapShare,
           customBorder: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -67,8 +77,16 @@ class PostFooter extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(MingCute.share_forward_line),
-                const SizedBox(width: 8),
-                Text('$shareCount'),
+                shareCount > 0
+                    ? Text(
+                        ' $shareCount',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        maxLines: 1,
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),
