@@ -76,6 +76,7 @@ class LatestScreen extends StatelessWidget {
               commentCount: 10,
               shareCount: 5,
               likeCount: 20,
+              type: PostType.text,
             ),
             onTapComment: () {},
             onTapShare: () {},

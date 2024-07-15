@@ -55,12 +55,16 @@ class _VoteToggleButtonsState extends State<VoteToggleButtons> {
                   children: [
                     const Icon(MingCute.large_arrow_up_line),
                     const SizedBox(width: 4),
-                    Text(
-                      '${_likeCount}',
-                      style: const TextStyle(
+                    Expanded(
+                      child: Text(
+                        '$_likeCount',
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis),
-                      maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),

@@ -12,7 +12,8 @@ class PostsDatasource extends IPostsDatasource {
   Future<Either<Failure, PostDetailEntity>> getPostDetails(
       String postId) async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(milliseconds: 100));
+
       final PostDetailEntity postDetail =
           posts.firstWhere((post) => post.id == postId);
       return Right(postDetail);
@@ -25,7 +26,7 @@ class PostsDatasource extends IPostsDatasource {
   @override
   Future<Either<Failure, List<PostEntity>>> getPosts() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(milliseconds: 100));
       return Right(posts);
     } catch (e) {
       return const Left(

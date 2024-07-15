@@ -17,5 +17,6 @@ class PostDetailEntity extends PostEntity {
     required super.commentCount,
     required super.shareCount,
     required super.likeCount,
+    required super.type,
   });
 }

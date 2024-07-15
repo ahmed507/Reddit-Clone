@@ -86,13 +86,38 @@ class _WatchScreenState extends State<WatchScreen> {
               child: Stack(
                 children: [
                   videoCard(state.videos[index], context),
-                  SafeArea(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: PostHeader(
-                        subreddit: state.videos[state.prevVideo + 1].subReddit,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SafeArea(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: PostHeader(
+                            subreddit:
+                                state.videos[state.prevVideo + 1].subReddit,
+                          ),
+                        ),
                       ),
-                    ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 16),
+                        child: Text(
+                          context
+                              .watch<WatchBloc>()
+                              .state
+                              .videos[
+                                  context.watch<WatchBloc>().state.prevVideo +
+                                      1]
+                              .videoTitle,
+                          style:
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -126,14 +151,17 @@ class _WatchScreenState extends State<WatchScreen> {
                   }
                 },
                 child: SizedBox.expand(
-                    child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.7,
-                    child: VideoPlayer(video.controller!),
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: VideoPlayer(
+                        video.controller!,
+                      ),
+                    ),
                   ),
-                )),
+                ),
               )
             : Container(
                 color: Colors.black,

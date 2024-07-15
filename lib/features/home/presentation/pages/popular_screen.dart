@@ -76,6 +76,7 @@ class PopularScreen extends StatelessWidget {
               content: 'This is a post content',
               commentCount: 10,
               shareCount: 7,
+              type: PostType.text,
             ),
             onTapComment: () {},
             onTapShare: () {},

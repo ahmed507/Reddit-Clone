@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:reddit_clone/core/common/widgets/base_layout.dart';
 import 'package:reddit_clone/core/common/widgets/splash.dart';
 import 'package:reddit_clone/core/router/routes.dart';
@@ -9,7 +10,12 @@ import 'package:reddit_clone/features/home/presentation/pages/latest_screen.dart
 import 'package:reddit_clone/features/home/presentation/pages/popular_screen.dart';
 import 'package:reddit_clone/features/home/presentation/pages/watch_screen.dart';
 import 'package:reddit_clone/features/home/presentation/widgets/home_header_widget.dart';
+import 'package:reddit_clone/features/post/presentation/pages/chat_screen.dart';
+import 'package:reddit_clone/features/post/presentation/pages/communities_screen.dart';
+import 'package:reddit_clone/features/post/presentation/pages/create_screen.dart';
+import 'package:reddit_clone/features/post/presentation/pages/inbox_screen.dart';
 import 'package:reddit_clone/features/post/presentation/pages/post_details_screen.dart';
+import 'package:reddit_clone/features/post/presentation/pages/video_post_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -28,7 +34,7 @@ final GoRouter router = GoRouter(
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) {
+      pageBuilder: (context, state, child) {
         Widget title;
         Widget? action;
         if (state.fullPath == Routes.home.toFullPath ||
@@ -51,10 +57,25 @@ final GoRouter router = GoRouter(
         } else {
           title = Text(Routes.home.toName);
         }
-        return BaseLayout(
-          title: title,
-          action: action,
-          child: child,
+        return CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: const Duration(milliseconds: 500),
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
+            // Change the opacity of the screen using a Curve based on the the animation's
+            // value
+            return FadeTransition(
+              opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+              child: child,
+            );
+          },
+          child: BaseLayout(
+            title: title,
+            action: action,
+            child: child,
+          ),
         );
       },
       routes: [
@@ -86,15 +107,85 @@ final GoRouter router = GoRouter(
             return const LatestScreen();
           },
         ),
+        GoRoute(
+          name: Routes.communities.toName,
+          path: Routes.communities.toFullPath,
+          builder: (context, state) {
+            return const CommunitiesScreen();
+          },
+        ),
+        GoRoute(
+          name: Routes.create.toName,
+          path: Routes.create.toFullPath,
+          builder: (context, state) {
+            return const CreateScreen();
+          },
+        ),
+        GoRoute(
+          name: Routes.chat.toName,
+          path: Routes.chat.toFullPath,
+          builder: (context, state) {
+            return const ChatScreen();
+          },
+        ),
+        GoRoute(
+          name: Routes.inbox.toName,
+          path: Routes.inbox.toFullPath,
+          builder: (context, state) {
+            return const InboxScreen();
+          },
+        ),
       ],
     ),
     GoRoute(
       name: Routes.postDetails.toName,
       path: '${Routes.postDetails.toFullPath}/:id',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final String id = state.pathParameters['id']!;
-        return PostDetailsScreen(
-          id: id,
+        return CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: const Duration(seconds: 1),
+          transitionsBuilder: ((context, animation, secondaryAnimation, child) {
+            return PageTransition(
+              child: child,
+              type: PageTransitionType.bottomToTop,
+              alignment: Alignment.center,
+            ).buildTransitions(
+              context,
+              animation,
+              secondaryAnimation,
+              child,
+            );
+          }),
+          child: PostDetailsScreen(
+            id: id,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      name: Routes.videoPost.toName,
+      path: '${Routes.videoPost.toFullPath}/:id',
+      pageBuilder: (context, state) {
+        final String id = state.pathParameters['id']!;
+        return CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: const Duration(seconds: 1),
+          transitionsBuilder: ((context, animation, secondaryAnimation, child) {
+            return PageTransition(
+              child: child,
+              type: PageTransitionType.bottomToTop,
+              alignment: Alignment.center,
+            ).buildTransitions(
+              context,
+              animation,
+              secondaryAnimation,
+              child,
+            );
+          }),
+          child: VideoPostScreen(
+            id: id,
+          ),
         );
       },
     ),

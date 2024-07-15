@@ -45,4 +45,10 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }

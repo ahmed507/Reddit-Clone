@@ -7,6 +7,7 @@ class PostEntity {
   final int commentCount;
   final int shareCount;
   final int likeCount;
+  final PostType type;
 
   PostEntity({
     required this.id,
@@ -17,5 +18,13 @@ class PostEntity {
     required this.commentCount,
     required this.shareCount,
     required this.likeCount,
+    required this.type,
   });
+}
+
+enum PostType {
+  text,
+  image,
+  video,
+  link,
 }

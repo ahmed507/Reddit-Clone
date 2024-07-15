@@ -10,6 +10,7 @@ enum Routes {
   watch,
   latest,
   postDetails,
+  videoPost,
 }
 
 extension RoutesExt on Routes {
@@ -37,6 +38,8 @@ extension RoutesExt on Routes {
         return 'Latest';
       case Routes.postDetails:
         return 'PostDetails';
+      case Routes.videoPost:
+        return 'VideoPost';
     }
   }
 
@@ -64,6 +67,8 @@ extension RoutesExt on Routes {
         return '/latest';
       case Routes.postDetails:
         return '/postDetails';
+      case Routes.videoPost:
+        return '/videoPost';
     }
   }
 }

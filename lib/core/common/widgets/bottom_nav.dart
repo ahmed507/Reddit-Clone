@@ -65,7 +65,7 @@ class BottomNav extends StatelessWidget {
         break;
       case 1:
         // Navigate to Communities
-        context.go('/');
+        context.go(Routes.communities.toFullPath);
         break;
       case 2:
         // Navigate to Create
